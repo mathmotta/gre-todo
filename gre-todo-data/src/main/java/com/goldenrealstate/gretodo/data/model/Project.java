@@ -1,5 +1,7 @@
 package com.goldenrealstate.gretodo.data.model;
 
+import com.goldenrealstate.gretodo.common.PersonRepresentation;
+import com.goldenrealstate.gretodo.common.ProjectRepresentationResponse;
 import com.goldenrealstate.gretodo.common.ProjectStatus;
 import com.goldenrealstate.gretodo.data.model.common.AuditableEntity;
 import com.goldenrealstate.gretodo.data.model.common.EntityBase;
@@ -85,6 +87,19 @@ public class Project extends AuditableEntity {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public ProjectRepresentationResponse toDto() {
+        ProjectRepresentationResponse pr = new ProjectRepresentationResponse();
+        pr.setId(getId());
+        pr.setName(getName());
+        pr.setDescription(getDescription());
+        pr.setStatus(getProjectStatus());
+        if(getPerson() != null)
+            pr.setPerson(getPerson().toDto());
+        if(getBuilding() != null)
+            pr.setBuilding(getBuilding().toDto());
+        return pr;
     }
 
 }

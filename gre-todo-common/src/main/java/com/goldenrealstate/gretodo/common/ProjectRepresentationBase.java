@@ -7,6 +7,7 @@ package com.goldenrealstate.gretodo.common;
  * @since 1.0
  */
 public class ProjectRepresentationBase extends AbstractResultRepresentation {
+    private Long id;
     private String name;
     private String description;
     private ProjectStatus status;
@@ -38,4 +39,11 @@ public class ProjectRepresentationBase extends AbstractResultRepresentation {
         this.status = status;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

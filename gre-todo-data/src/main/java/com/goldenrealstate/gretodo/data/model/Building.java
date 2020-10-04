@@ -1,6 +1,7 @@
 package com.goldenrealstate.gretodo.data.model;
 
 
+import com.goldenrealstate.gretodo.common.BuildingRepresentation;
 import com.goldenrealstate.gretodo.data.model.common.EntityBase;
 
 import javax.persistence.Column;
@@ -34,5 +35,12 @@ public class Building extends EntityBase {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BuildingRepresentation toDto(){
+        BuildingRepresentation br = new BuildingRepresentation();
+        br.setId(getId());
+        br.setName(getName());
+        return br;
     }
 }
