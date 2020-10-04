@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Defines a ProjectRepository.
  * Projects use some uncommon queries such as findByPerson or findByBuilding (not yet implemented)
  *
- * @since 1.0
  * @author Mathews Motta
+ * @since 1.0
  */
 public interface IProjectRepository extends JpaRepository<Project, Long> {
 

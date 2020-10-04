@@ -11,9 +11,9 @@ import java.time.Instant;
  * An {@link AuditableEntity} defines that an Entity is auditable.
  * Therefore, it holds information such as created/updated by/at
  *
+ * @author Mathews Motta
  * @see com.goldenrealstate.gretodo.data.model.common.EntityBase
  * @since 1.0
- * @author Mathews Motta
  */
 @MappedSuperclass
 public abstract class AuditableEntity extends EntityBase {

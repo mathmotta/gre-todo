@@ -11,8 +11,8 @@ import javax.persistence.MappedSuperclass;
  * Defines an Entity.
  * It holds id information to guarantee all entities are consistent.
  *
- * @since 1.0
  * @author Mathews Motta
+ * @since 1.0
  */
 @MappedSuperclass
 public abstract class EntityBase {

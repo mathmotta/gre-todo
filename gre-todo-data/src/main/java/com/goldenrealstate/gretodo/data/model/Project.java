@@ -12,13 +12,13 @@ import javax.persistence.*;
  * It reuses generic entity information(such as id) from {@link EntityBase}
  * A project can have a name and description and can be assigned to a person and a building.
  *
+ * @author Mathews Motta
  * @see com.goldenrealstate.gretodo.data.model.common.AuditableEntity
  * @see com.goldenrealstate.gretodo.data.model.common.EntityBase
  * @since 1.0
- * @author Mathews Motta
  */
 @Entity()
-@Table(name  = "project")
+@Table(name = "project")
 public class Project extends AuditableEntity {
 
     @Column(nullable = false)
@@ -32,17 +32,17 @@ public class Project extends AuditableEntity {
     private ProjectStatus projectStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="building_id")
+    @JoinColumn(name = "building_id")
     private Building building;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="person_id")
+    @JoinColumn(name = "person_id")
     private Person person;
 
-    public Project () {
+    public Project() {
     }
 
-    public Project (String name){
+    public Project(String name) {
         setName(name);
         setProjectStatus(ProjectStatus.NEW);
     }

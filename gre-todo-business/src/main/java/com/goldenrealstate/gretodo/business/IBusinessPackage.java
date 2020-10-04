@@ -1,4 +1,4 @@
-package com.goldenrealstate.gretodo.data;
+package com.goldenrealstate.gretodo.business;
 
 /**
  * This interface is used for dependency injection configuration purposes.
@@ -7,5 +7,5 @@ package com.goldenrealstate.gretodo.data;
  * @author Mathews Motta
  * @since 1.0
  */
-public interface IDataPackage {
+public interface IBusinessPackage {
 }

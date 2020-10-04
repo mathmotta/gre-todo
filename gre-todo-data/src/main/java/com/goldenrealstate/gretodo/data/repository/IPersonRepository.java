@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Defines a PersonRepository.
  * Persons use normal Repository queries.
  *
- * @since 1.0
  * @author Mathews Motta
+ * @since 1.0
  */
 public interface IPersonRepository extends JpaRepository<Person, Long> {
 

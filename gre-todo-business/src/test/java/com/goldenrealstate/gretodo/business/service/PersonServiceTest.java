@@ -1,5 +1,8 @@
 package com.goldenrealstate.gretodo.business.service;
 
+import com.goldenrealstate.gretodo.business.exception.IdNotFoundException;
+import com.goldenrealstate.gretodo.business.exception.InvalidNameException;
+import com.goldenrealstate.gretodo.business.service.impl.PersonService;
 import com.goldenrealstate.gretodo.data.model.Person;
 import com.goldenrealstate.gretodo.data.repository.IPersonRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +22,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
+/**
+ * Tests the default person service {@link PersonService}
+ * This should NOT spy/autowire interface services.
+ *
+ * @author Mathews Motta
+ * @since 1.0
+ */
 public class PersonServiceTest {
 
     @InjectMocks
@@ -29,12 +39,12 @@ public class PersonServiceTest {
     private IPersonRepository personRepository;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void createPersonAndReturnSuccess() {
+    public void createPersonAndReturnSuccess() throws InvalidNameException {
         String personName = "Odin";
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
         Person result = personService.create(personName);
@@ -44,20 +54,20 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void createPersonAndFailBecauseOfNullName(){
+    public void createPersonAndFailBecauseOfNullName() {
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
         assertThatThrownBy(() -> personService.create(null)).isInstanceOf(InvalidNameException.class);
     }
 
     @Test
-    public void createPersonAndFailBecauseOfEmptyName(){
+    public void createPersonAndFailBecauseOfEmptyName() {
         String personName = "";
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
         assertThatThrownBy(() -> personService.create(personName)).isInstanceOf(InvalidNameException.class);
     }
 
     @Test
-    public void updatePersonAndReturnSuccess () {
+    public void updatePersonAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
         String personName = "Thor";
         doReturn(Optional.of(mock(Person.class))).when(personRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
@@ -67,14 +77,14 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void updatePersonAndReturnFailBecauseOfNullName () {
+    public void updatePersonAndReturnFailBecauseOfNullName() {
         doReturn(Optional.of(mock(Person.class))).when(personRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
         assertThatThrownBy(() -> personService.update(1L, null)).isInstanceOf(InvalidNameException.class);
     }
 
     @Test
-    public void updatePersonAndReturnFailBecauseOfEmptyName () {
+    public void updatePersonAndReturnFailBecauseOfEmptyName() {
         String personName = "";
         doReturn(Optional.of(mock(Person.class))).when(personRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
@@ -82,12 +92,12 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void findAllPersonsAndReturnSuccess () {
+    public void findAllPersonsAndReturnSuccess() {
         Person person1 = mock(Person.class);
         Person person2 = mock(Person.class);
 
-        PageRequest pageRequest = PageRequest.of(0,10, Sort.Direction.ASC,"name");
-        doReturn(new PageImpl<>(List.of(person1, person2),pageRequest,10)).when(personRepository).findAll(Pageable.unpaged());
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
+        doReturn(new PageImpl<>(List.of(person1, person2), pageRequest, 10)).when(personRepository).findAll(Pageable.unpaged());
 
         Page<Person> results = personService.findAll(Pageable.unpaged());
 
@@ -97,12 +107,12 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void findPersonsByNameAndReturnSuccess () {
+    public void findPersonsByNameAndReturnSuccess() {
         String personName = "Freyja";
         Person person = mock(Person.class);
 
-        PageRequest pageRequest = PageRequest.of(0,10,Sort.Direction.ASC,"name");
-        doReturn(new PageImpl<>(List.of(person),pageRequest,10)).when(personRepository).findByName(anyString(), any());
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
+        doReturn(new PageImpl<>(List.of(person), pageRequest, 10)).when(personRepository).findByName(anyString(), any());
         Page<Person> results = personService.findByName(personName, Pageable.unpaged());
 
         assertThat(results).isNotEmpty();

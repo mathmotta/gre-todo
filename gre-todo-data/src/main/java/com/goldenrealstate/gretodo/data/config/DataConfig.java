@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * Configures the data module by package class and not strings
  *
- * @since 1.0
  * @author Mathews Motta
+ * @since 1.0
  */
 @Configuration
 @ComponentScan(basePackageClasses = {IDataPackage.class})
