@@ -2,9 +2,21 @@ package com.goldenrealstate.gretodo.data.model;
 
 import com.goldenrealstate.gretodo.common.ProjectStatus;
 import com.goldenrealstate.gretodo.data.model.common.AuditableEntity;
+import com.goldenrealstate.gretodo.data.model.common.EntityBase;
 
 import javax.persistence.*;
 
+/**
+ * The {@link Project} entity holds information about a project.
+ * It's an auditable class to keep track of project's history and thus reuses generic auditable entity information from {@link AuditableEntity}
+ * It reuses generic entity information(such as id) from {@link EntityBase}
+ * A project can have a name and description and can be assigned to a person and a building.
+ *
+ * @see com.goldenrealstate.gretodo.data.model.common.AuditableEntity
+ * @see com.goldenrealstate.gretodo.data.model.common.EntityBase
+ * @since 1.0
+ * @author Mathews Motta
+ */
 @Entity()
 @Table(name  = "project")
 public class Project extends AuditableEntity {

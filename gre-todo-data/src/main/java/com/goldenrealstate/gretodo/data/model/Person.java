@@ -7,6 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * The {@link Person} entity holds information about a person and reuses generic entity information from {@link EntityBase}
+ *
+ * @see com.goldenrealstate.gretodo.data.model.common.EntityBase
+ * @since 1.0
+ * @author Mathews Motta
+ */
 @Entity()
 @Table(name  = "person")
 public class Person extends EntityBase {

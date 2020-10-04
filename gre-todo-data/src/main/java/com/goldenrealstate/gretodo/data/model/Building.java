@@ -7,6 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * The {@link Building} entity holds information about a building and reuses generic entity information from {@link EntityBase}
+ *
+ * @see com.goldenrealstate.gretodo.data.model.common.EntityBase
+ * @since 1.0
+ * @author Mathews Motta
+ */
 @Entity()
 @Table(name  = "building")
 public class Building extends EntityBase {
