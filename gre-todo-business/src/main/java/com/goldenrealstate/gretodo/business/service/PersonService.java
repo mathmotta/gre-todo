@@ -17,4 +17,8 @@ public class PersonService implements IPersonService {
         Person person = new Person(name);
         return personRepository.save(person);
     }
+
+    public Person update(long id, String name) {
+        return null;
+    }
 }
