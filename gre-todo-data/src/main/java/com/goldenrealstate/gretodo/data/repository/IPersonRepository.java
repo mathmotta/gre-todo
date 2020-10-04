@@ -14,5 +14,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface IPersonRepository extends JpaRepository<Person, Long> {
 
+    /**
+     * Finds a person by a provided name and paginate the results using the provided Pageable information
+     *
+     * @param name     the name of the person to find
+     * @param pageable the pageable information
+     * @return a paginated list of persons
+     */
     Page<Person> findByName(String name, Pageable pageable);
 }
