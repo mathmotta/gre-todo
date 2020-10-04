@@ -1,6 +1,7 @@
 package com.goldenrealstate.gretodo.data.model;
 
 
+import com.goldenrealstate.gretodo.common.PersonRepresentation;
 import com.goldenrealstate.gretodo.data.model.common.EntityBase;
 
 import javax.persistence.Column;
@@ -36,4 +37,14 @@ public class Person extends EntityBase {
         this.name = name;
     }
 
+    /**
+     * Transforms Entity data into a DTO to better control external data access
+     *
+     * @return a representation of a Person. A DTO Object.
+     */
+    public PersonRepresentation toDto() {
+        PersonRepresentation pr = new PersonRepresentation();
+        pr.setName(getName());
+        return pr;
+    }
 }
