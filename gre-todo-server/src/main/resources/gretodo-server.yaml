@@ -1,0 +1,16 @@
+info:
+  app:
+    name: Golden Real Estate ToDo
+    description: A small sample project integrating a Java backend with VueJS frontend.
+    product-name: "gre-todo"
+    product-version: "1.0.0"
+
+spring:
+  application:
+    name: gre-todo-server
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/tests
+    username: sylvain
+    password: sylvain

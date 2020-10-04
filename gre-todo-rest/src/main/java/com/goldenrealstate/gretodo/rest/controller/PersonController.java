@@ -19,8 +19,14 @@ import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for Person's CRUD operations
+ *
+ * @author Mathews Motta
+ * @since 1.0
+ */
 @RestController
-@RequestMapping("/persons")
+@RequestMapping("/api/persons")
 public class PersonController {
 
     @Autowired

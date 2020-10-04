@@ -19,7 +19,12 @@ import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+/**
+ * Controller for Building's CRUD operations
+ *
+ * @author Mathews Motta
+ * @since 1.0
+ */
 @RestController
 @RequestMapping("/api/buildings")
 public class BuildingController {

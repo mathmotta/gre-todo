@@ -21,7 +21,12 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+/**
+ * Controller for Project's CRUD operations
+ *
+ * @author Mathews Motta
+ * @since 1.0
+ */
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectController {
