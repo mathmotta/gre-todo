@@ -41,9 +41,9 @@
     </developers>
 
     <modules>
-        <module>gre-todo-server</module>
-        <module>gre-todo-rest</module>
-        <module>gre-todo-business</module>
+<!--        <module>gre-todo-server</module>-->
+<!--        <module>gre-todo-rest</module>-->
+<!--        <module>gre-todo-business</module>-->
         <module>gre-todo-data</module>
         <module>gre-todo-common</module>
     </modules>
