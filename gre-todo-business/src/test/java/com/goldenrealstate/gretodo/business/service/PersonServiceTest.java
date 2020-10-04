@@ -8,7 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.springframework.data.domain.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,5 +79,33 @@ public class PersonServiceTest {
         doReturn(Optional.of(mock(Person.class))).when(personRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(personRepository).save(any(Person.class));
         assertThatThrownBy(() -> personService.update(1L, personName)).isInstanceOf(InvalidNameException.class);
+    }
+
+    @Test
+    public void findAllPersonsAndReturnSuccess () {
+        Person person1 = mock(Person.class);
+        Person person2 = mock(Person.class);
+
+        PageRequest pageRequest = PageRequest.of(0,10, Sort.Direction.ASC,"name");
+        doReturn(new PageImpl<>(List.of(person1, person2),pageRequest,10)).when(personRepository).findAll(Pageable.unpaged());
+
+        Page<Person> results = personService.findAll(Pageable.unpaged());
+
+        assertThat(results).isNotEmpty();
+        assertThat(results.getContent()).contains(person1);
+        assertThat(results.getContent()).contains(person2);
+    }
+
+    @Test
+    public void findPersonsByNameAndReturnSuccess () {
+        String personName = "Freyja";
+        Person person = mock(Person.class);
+
+        PageRequest pageRequest = PageRequest.of(0,10,Sort.Direction.ASC,"name");
+        doReturn(new PageImpl<>(List.of(person),pageRequest,10)).when(personRepository).findByName(anyString(), any());
+        Page<Person> results = personService.findByName(personName, Pageable.unpaged());
+
+        assertThat(results).isNotEmpty();
+        assertThat(results.getContent()).contains(person);
     }
 }
