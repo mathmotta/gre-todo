@@ -19,7 +19,7 @@ public class BuildingService implements IBuildingService {
     private IBuildingRepository buildingRepository;
 
     @Override
-    public Building create(String name) throws InvalidNameException{
+    public Building create(String name) throws InvalidNameException {
         verifyName(name);
 
         Building building = new Building(name);
@@ -27,12 +27,12 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
-    public Building update(long id, String newName) throws InvalidNameException, IdNotFoundException{
+    public Building update(long id, String newName) throws InvalidNameException, IdNotFoundException {
         verifyName(newName);
         Optional<Building> building = buildingRepository.findById(id);
 
         Building actual;
-        if(building.isPresent())
+        if (building.isPresent())
             actual = building.get();
         else
             throw new IdNotFoundException(id);
@@ -49,7 +49,7 @@ public class BuildingService implements IBuildingService {
     @Override
     public Building findById(long id) {
         Optional<Building> building = buildingRepository.findById(id);
-        if(building.isEmpty())
+        if (building.isEmpty())
             return null;
         return building.get();
     }
@@ -64,8 +64,15 @@ public class BuildingService implements IBuildingService {
         return buildingRepository.findByName(name, pageable);
     }
 
-    private void verifyName(String name) throws InvalidNameException{
-        if(name == null || name.isEmpty())
+    /**
+     * Verifies if a provided name is either null or empty.
+     * If the name is null or empty, an exception is thrown.
+     *
+     * @param name the name to ve verified
+     * @throws InvalidNameException if the name is null or empty
+     */
+    private void verifyName(String name) throws InvalidNameException {
+        if (name == null || name.isEmpty())
             throw new InvalidNameException();
     }
 }

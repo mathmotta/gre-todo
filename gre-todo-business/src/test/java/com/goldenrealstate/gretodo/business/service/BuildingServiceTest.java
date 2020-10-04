@@ -44,7 +44,7 @@ public class BuildingServiceTest {
     }
 
     @Test
-    public void createPersonAndReturnSuccess() throws InvalidNameException {
+    public void createBuildingAndReturnSuccess() throws InvalidNameException {
         String buildingName = "Valhalla";
         doAnswer(inv -> inv.getArguments()[0]).when(buildingRepository).save(any(Building.class));
         Building result = buildingService.create(buildingName);
@@ -54,20 +54,20 @@ public class BuildingServiceTest {
     }
 
     @Test
-    public void createPersonAndFailBecauseOfNullName() {
+    public void createBuildingAndFailBecauseOfNullName() {
         doAnswer(inv -> inv.getArguments()[0]).when(buildingRepository).save(any(Building.class));
         assertThatThrownBy(() -> buildingService.create(null)).isInstanceOf(InvalidNameException.class);
     }
 
     @Test
-    public void createPersonAndFailBecauseOfEmptyName() {
+    public void createBuildingAndFailBecauseOfEmptyName() {
         String buildingName = "";
         doAnswer(inv -> inv.getArguments()[0]).when(buildingRepository).save(any(Building.class));
         assertThatThrownBy(() -> buildingService.create(buildingName)).isInstanceOf(InvalidNameException.class);
     }
 
     @Test
-    public void updatePersonAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
+    public void updateBuildingAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
         String buildingName = "Bifröst";
         doReturn(Optional.of(mock(Building.class))).when(buildingRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(buildingRepository).save(any(Building.class));
@@ -77,14 +77,14 @@ public class BuildingServiceTest {
     }
 
     @Test
-    public void updatePersonAndReturnFailBecauseOfNullName() {
+    public void updateBuildingAndReturnFailBecauseOfNullName() {
         doReturn(Optional.of(mock(Building.class))).when(buildingRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(buildingRepository).save(any(Building.class));
         assertThatThrownBy(() -> buildingService.update(1L, null)).isInstanceOf(InvalidNameException.class);
     }
 
     @Test
-    public void updatePersonAndReturnFailBecauseOfEmptyName() {
+    public void updateBuildingAndReturnFailBecauseOfEmptyName() {
         String buildingName = "";
         doReturn(Optional.of(mock(Building.class))).when(buildingRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(buildingRepository).save(any(Building.class));
@@ -92,7 +92,7 @@ public class BuildingServiceTest {
     }
 
     @Test
-    public void findAllPersonsAndReturnSuccess() {
+    public void findAllBuildingsAndReturnSuccess() {
         Building building1 = mock(Building.class);
         Building building2 = mock(Building.class);
 
