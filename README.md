@@ -12,7 +12,7 @@ A Todo App for a fictional company Golden Real Estate using VueJS and SpringBoot
 
 Java 11
 
-Maven 3.6.1
+Maven 3.3.0
 
 ## Running the app
 

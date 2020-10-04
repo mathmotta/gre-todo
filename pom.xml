@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.goldenrealstate</groupId>
+    <artifactId>gre-todo</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <name>Golden Real State ToDo</name>
+    <description>A small sample project integrating a Java backend with VueJS frontend.</description>
+
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <prerequisites>
+        <maven>3.3.0</maven>
+    </prerequisites>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>mathmotta</id>
+            <name>Mathews Motta</name>
+            <email>mathewscsmotta@gmail.com</email>
+            <url>https://pt.linkedin.com/in/mathews-motta-1b67909a</url>
+            <organization>Arcaedion</organization>
+            <organizationUrl>http://www.gamedevgalactico.com</organizationUrl>
+            <timezone>0</timezone>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+</project>
