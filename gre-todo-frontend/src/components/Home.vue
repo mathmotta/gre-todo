@@ -33,7 +33,6 @@
         </p>
       </article>
     </div>
-            
   </section>
 </template>
 
