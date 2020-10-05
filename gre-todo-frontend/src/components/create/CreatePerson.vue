@@ -1,6 +1,6 @@
 <template>
-  <div class="create-building">
-    <h1>Create a Building</h1>
+  <div class="create-person">
+    <h1>Create a Person</h1>
     <div class="submit-form">
       <div v-if="!submitted">
         <div class="form-group">
@@ -10,55 +10,55 @@
             class="form-control"
             id="name"
             required
-            v-model="building.name"
+            v-model="person.name"
             name="name"
           />
         </div>
 
-        <button @click="createBuilding" class="btn btn-success">
-          Create building
+        <button @click="createPerson" class="btn btn-success">
+          Create person
         </button>
       </div>
 
       <div v-else>
-        <h4>Building submitted</h4>
-        <button class="btn btn-success" @click="newBuilding">Add</button>
+        <h4>Person submitted</h4>
+        <button class="btn btn-success" @click="newPerson">Add</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import BuildingDataService from "../../services/BuildingDataService";
+import PersonDataService from "../../services/PersonDataService";
 
 export default {
-  name: "create-building",
+  name: "create-person",
   data() {
     return {
-      building: {
+      person: {
         name: "",
       },
       submitted: false,
     };
   },
   methods: {
-    async createBuilding() {
-      await BuildingDataService.create({
-        name: this.building.name,
+    async createPerson() {
+      await PersonDataService.create({
+        name: this.person.name,
       });
-      this.$router.push({ name: "buildings" });
+      this.$router.push({ name: "persons" });
     },
 
-    newBuilding() {
+    newPerson() {
       this.submitted = false;
-      this.building = {};
+      this.person = {};
     },
   },
 };
 </script>
 
 <style>
-.create-building {
+.create-person {
   padding-top: 50px;
   max-width: 700px;
   margin: auto;

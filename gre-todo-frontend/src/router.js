@@ -20,6 +20,26 @@ export default new Router({
             path: "/buildings",
             name: "buildings",
             component: () => import("./components/list/BuildingList")
+        },
+        {
+            path: "/buildings/edit/:id",
+            name: "edit-building",
+            component: () => import("./components/update/UpdateBuilding")
+        },
+        {
+            path: "/persons/new",
+            name: "new-person",
+            component: () => import("./components/create/CreatePerson")
+        },
+        {
+            path: "/persons",
+            name: "persons",
+            component: () => import("./components/list/PersonList")
+        },
+        {
+            path: "/persons/edit/:id",
+            name: "edit-person",
+            component: () => import("./components/update/UpdatePerson")
         }
     ]
 });

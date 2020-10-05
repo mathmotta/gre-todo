@@ -1,6 +1,6 @@
 <template>
-  <div v-if="building" class="edit-building">
-    <h1>Editing Building: {{ oldName }}</h1>
+  <div v-if="person" class="edit-person">
+    <h1>Editing Person: {{ oldName }}</h1>
     <div class="submit-form">
       <div v-if="!submitted">
         <div class="form-group">
@@ -10,46 +10,46 @@
             class="form-control"
             id="name"
             required
-            v-model="building.name"
+            v-model="person.name"
             name="name"
           />
         </div>
 
-        <button @click="editBuilding(building.id)" class="btn btn-success">
-          Edit Building
+        <button @click="editPerson(person.id)" class="btn btn-success">
+          Edit Person
         </button>
       </div>
 
       <div v-else>
-        <h4>Building edited!</h4>
-        <button class="btn btn-success" @click="newBuilding">Add</button>
+        <h4></h4>
+        <button class="btn btn-success" @click="newPerson">Add</button>
       </div>
     </div>
   </div>
 
   <div v-else>
     <br />
-    <p>Please click on a Building...</p>
+    <p>Please click on a Person...</p>
   </div>
 </template>
 
 <script>
-import BuildingDataService from "../../services/BuildingDataService";
+import PersonDataService from "../../services/PersonDataService";
 
 export default {
-  name: "edit-building",
+  name: "edit-person",
   data() {
     return {
       oldName: "",
-      building: null,
+      person: null,
       submitted: false,
     };
   },
   methods: {
     async findById(id) {
-      await BuildingDataService.findById(id)
+      await PersonDataService.findById(id)
         .then((res) => {
-          this.building = res.data;
+          this.person = res.data;
           this.oldName = res.data.name;
         })
         .catch((e) => {
@@ -57,16 +57,16 @@ export default {
         });
     },
 
-    async editBuilding(id) {
-      await BuildingDataService.update(id, {
-        name: this.building.name,
+    async editPerson(id) {
+      await PersonDataService.update(id, {
+        name: this.person.name,
       });
-      this.$router.push({ name: "buildings" });
+      this.$router.push({ name: "persons" });
     },
 
-    newBuilding() {
+    newPerson() {
       this.submitted = false;
-      this.building = {};
+      this.person = {};
     },
   },
   mounted() {
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style>
-.edit-building {
+.edit-person {
   padding-top: 50px;
   max-width: 700px;
   margin: auto;

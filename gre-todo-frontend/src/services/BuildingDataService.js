@@ -1,24 +1,23 @@
 import hc from '../http-common'
 
 class BuildingDataService {
-    create(building){
-        hc.post('/buildings', building)
+    findById(id) {
+        return hc.get(`/buildings/${id}`)
+    }
+    create(building) {
+        return hc.post('/buildings', building)
     }
 
-    update(building){
-        hc.put('/buildings', building)
+    update(id, building) {
+        return hc.put(`/buildings/${id}`, building)
     }
 
-    delete(id){
-        hc.delete(`/buildings/${id}`)
+    delete(id) {
+        return hc.delete(`/buildings/${id}`)
     }
 
-    findById(id){
-        hc.get(`/buildings/${id}`)
-    }
-
-    findAll(name,  pageable) {
-        if(name===null)
+    findAll(name, pageable) {
+        if (name === null)
             return hc.get(`/buildings?${pageable}`)
         else
             return hc.get(`/buildings?name=${name}&${pageable}`)

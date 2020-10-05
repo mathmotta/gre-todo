@@ -1,17 +1,20 @@
 <template>
   <v-row align="center" class="list px-2 mx-auto">
     <v-col cols="12" md="12">
-      <h1>All Buildings</h1>
+      <h1>All Persons</h1>
     </v-col>
     <v-col cols="12" md="8">
       <v-text-field v-model="name" label="Find by Name"></v-text-field>
     </v-col>
+
     <v-col cols="12" md="2">
-      <v-btn small class="btn primary" @click="findBuildings"> Find </v-btn>
+      <v-btn small class="btn primary" @click="findPersons"> Find </v-btn>
     </v-col>
+
     <v-col cols="12" md="2">
-      <v-btn small class="btn" @click="resetFilters"> Reset filter </v-btn>
+      <v-btn small class="btn" @click="resetFilters"> Reset Filter </v-btn>
     </v-col>
+
     <v-col cols="12" md="4">
       <h4>Total: {{ count }}</h4>
     </v-col>
@@ -30,39 +33,38 @@
     </v-col>
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
-        <v-card-title>Buildings</v-card-title>
+        <v-card-title>Persons</v-card-title>
 
         <v-data-table
           :headers="headers"
-          :items="buildings"
-          disable-pagination
+          :items="persons"
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-4" @click="editBuilding(item.id)"
-              >mdi-pencil</v-icon
+            <v-icon small class="mr-4" @click="editPerson(item.id)"
+              >mdi-lead-pencil</v-icon
             >
-            <v-icon small @click="deleteBuilding(item.id)">mdi-delete</v-icon>
+            <v-icon small @click="deletePerson(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
       </v-card>
     </v-col>
     <v-col cols="12" md="2">
-      <v-btn class="btn primary" @click="createBuilding">
-        Create new Building
+      <v-btn class="btn primary" @click="createPerson">
+        Create new Person
       </v-btn>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import BuildingDataService from "../../services/BuildingDataService";
+import PersonDataService from "../../services/PersonDataService";
 
 export default {
-  name: "building-list",
+  name: "person-list",
   data() {
     return {
-      buildings: [],
+      persons: [],
       name: "",
       headers: [
         { text: "Name", align: "start", sortable: true, value: "name" },
@@ -75,61 +77,59 @@ export default {
     };
   },
   methods: {
-    async findBuildings() {
+    async findPersons() {
       const params = "page=" + (this.page - 1) + "&size=" + this.pageSize;
 
-      await BuildingDataService.findAll(
+      await PersonDataService.findAll(
         this.name.trim() == "" ? null : this.name.trim(),
         params
       )
         .then((resp) => {
-          this.buildings = resp.data.data;
+          this.persons = resp.data.data;
           this.count = resp.data.total;
         })
         .catch((e) => console.log(e));
     },
-
     resetFilters() {
       this.name = "";
-      this.findBuildings();
+      this.findPersons();
     },
-
     handlePageChange(value) {
       this.page = value;
-      this.findBuildings();
+      this.findPersons();
     },
 
     handlePageSizeChange(event) {
       this.pageSize = event.target.value;
       this.page = 1;
-      this.findBuildings();
+      this.findPersons();
     },
 
-    setActive(building, index) {
-      this.currentBuilding = building;
+    setActive(person, index) {
+      this.currentPerson = person;
       this.currentIndex = index;
     },
 
-    editBuilding(id) {
+    editPerson(id) {
       this.$router
-        .push({ name: "edit-building", params: { id: id } })
+        .push({ name: "edit-person", params: { id: id } })
         .catch((err) => {
           throw new Error(`An error has occurred: ${err}.`);
         });
     },
 
-    createBuilding(id) {
-      this.$router.push({ name: "new-building", params: { id: id } });
+    createPerson(id) {
+      this.$router.push({ name: "new-person", params: { id: id } });
     },
 
-    async deleteBuilding(id) {
-      await BuildingDataService.delete(id).catch((e) => console.log(e));
-      await this.findBuildings();
+    async deletePerson(id) {
+      await PersonDataService.delete(id).catch((e) => console.log(e));
+      await this.findPersons();
       this.handlePageChange(1);
     },
   },
   mounted() {
-    this.findBuildings();
+    this.findPersons();
   },
 };
 </script>
