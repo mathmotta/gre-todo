@@ -5,12 +5,39 @@ info:
     product-name: "gre-todo"
     product-version: "1.0.0"
 
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
 spring:
   application:
     name: gre-todo-server
+  main:
+    banner-mode: log
   datasource:
     driver-class-name: org.postgresql.Driver
     platform: postgres
     url: jdbc:postgresql://localhost:5432/tests
     username: sylvain
     password: sylvain
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        connection:
+          charSet: UTF-8
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        jdbc.lob:
+          non_contextual_creation: true
+        hbm2ddl:
+          auto: create-drop
+          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+  h2:
+    console:
+      enabled: false
+  servlet:
+    multipart:
+      max-file-size:    2048MB
+      max-request-size: 2048MB

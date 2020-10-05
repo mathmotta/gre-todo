@@ -8,6 +8,7 @@ import com.goldenrealstate.gretodo.data.repository.IPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import java.util.Optional;
  * @see com.goldenrealstate.gretodo.business.service.IEntityService
  * @since 1.0
  */
+@Service
 public class PersonService implements IPersonService {
 
     @Autowired
