@@ -80,8 +80,12 @@ public class BuildingController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResultRepresentationList<BuildingRepresentation> findAll(Pageable pageable){
-        Page<Building> buildings = buildingService.findAll(pageable);
+    public ResultRepresentationList<BuildingRepresentation> findAll(@RequestParam(required = false) String name, Pageable pageable){
+        Page<Building> buildings;
+        if(name != null)
+            buildings = buildingService.findByName(name, pageable);
+        else
+            buildings = buildingService.findAll(pageable);
         return new ResultRepresentationList<>(
                 buildings.getTotalElements(),
                 buildings.getSize(),
