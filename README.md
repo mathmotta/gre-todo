@@ -61,6 +61,16 @@ npm run serve
 
 After the server is up, you can acess the application in http://localhost:8080/
 
+## Project Structure
+
+The project is made with a multi-module structure for scalability. See below the class diagram:
+
+![GRE_ClassDiagram](./spec/GRE_CD.png)
+
+Project ERD:
+
+![GRE_ERD](./spec/GRE_ERD.png)
+
 ## Decisions
 
 ### Lombok
@@ -73,6 +83,8 @@ By default, the Postgres driver does not accept users with no passwords. Althoug
 ## Challenges
 
 Although I sometimes work with maven projects, the majority of my projects use gradle - which has lots of common characteristics, but I had to learn how to deal with Maven sometimes.
+
+Since I never worked with VueJS before, I took the opportunity to learn a bit more about the framework. Although I have a bit of experience with React and Vue is a bit simillar, it is different enough to have its own challenges when learning it!
 
 ## External Resources
 
