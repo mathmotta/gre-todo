@@ -40,7 +40,10 @@ import static org.mockito.Mockito.*;
  */
 @SuppressWarnings("ALL")
 public class ProjectServiceTest {
-
+    public static final String TEST_USER = "TestUser";
+    public static final String PROJECT_NAME = "Cleanup the garbage left on Bifröst";
+    public static final String PROJECT_DESC = "It's probably Loki's fault";
+    
     @InjectMocks
     @Spy
     private ProjectService projectService;
@@ -64,16 +67,14 @@ public class ProjectServiceTest {
 
     @Test
     public void createProjectWithoutPersonAndBuildingAndReturnSuccess() throws InvalidNameException {
-        String projectName = "Cleanup the garbage left on Bifröst";
-        String projectDescription = "It's probably Loki's fault";
         ProjectStatus projectStatus = ProjectStatus.NEW;
 
         ProjectRepresentation pr = mock(ProjectRepresentation.class);
-        doReturn(projectName).when(pr).getName();
-        doReturn(projectDescription).when(pr).getDescription();
+        doReturn(PROJECT_NAME).when(pr).getName();
+        doReturn(PROJECT_DESC).when(pr).getDescription();
         doReturn(projectStatus.toString()).when(pr).getStatus();
 
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
         Project result = projectService.create(pr);
 
@@ -84,18 +85,16 @@ public class ProjectServiceTest {
 
     @Test
     public void createProjectWithoutBuildingAndReturnSuccess() throws InvalidNameException {
-        String projectName = "Cleanup the garbage left on Bifröst";
-        String projectDescription = "It's probably Loki's fault";
         ProjectStatus projectStatus = ProjectStatus.NEW;
         long personId = 1;
 
         ProjectRepresentation pr = mock(ProjectRepresentation.class);
-        doReturn(projectName).when(pr).getName();
-        doReturn(projectDescription).when(pr).getDescription();
+        doReturn(PROJECT_NAME).when(pr).getName();
+        doReturn(PROJECT_DESC).when(pr).getDescription();
         doReturn(projectStatus.toString()).when(pr).getStatus();
         doReturn(personId).when(pr).getPersonId();
 
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         Person p = mock(Person.class);
         doReturn(Optional.of(p)).when(personRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
@@ -108,20 +107,18 @@ public class ProjectServiceTest {
 
     @Test
     public void createProjectAndReturnSuccess() throws InvalidNameException {
-        String projectName = "Cleanup the garbage left on Bifröst";
-        String projectDescription = "It's probably Loki's fault";
         ProjectStatus projectStatus = ProjectStatus.NEW;
         long personId = 1;
         long buildingId = 1;
 
         ProjectRepresentation pr = mock(ProjectRepresentation.class);
-        doReturn(projectName).when(pr).getName();
-        doReturn(projectDescription).when(pr).getDescription();
+        doReturn(PROJECT_NAME).when(pr).getName();
+        doReturn(PROJECT_DESC).when(pr).getDescription();
         doReturn(projectStatus.toString()).when(pr).getStatus();
         doReturn(personId).when(pr).getPersonId();
         doReturn(buildingId).when(pr).getBuildingId();
 
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         Person p = mock(Person.class);
         doReturn(Optional.of(p)).when(personRepository).findById(anyLong());
         Building b = mock(Building.class);
@@ -150,17 +147,15 @@ public class ProjectServiceTest {
 
     @Test
     public void updateProjectNameAndReturnSuccess() throws IdNotFoundException {
-        String projectName = "Cleanup the garbage left on Bifröst";
-
         Project prResult = new Project();
-        prResult.setName(projectName);
+        prResult.setName(PROJECT_NAME);
 
         String projectNameUpdated = "Cleanup the trash left on Bifröst"; // garbage with trash
         ProjectRepresentation prMock = mock(ProjectRepresentation.class);
         doReturn(projectNameUpdated).when(prMock).getName();
 
         doReturn(Optional.of(prResult)).when(projectRepository).findById(anyLong());
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
         Project result = projectService.update(1L, prMock);
 
@@ -170,17 +165,15 @@ public class ProjectServiceTest {
 
     @Test
     public void updateProjectDescriptionAndReturnSuccess() throws IdNotFoundException {
-        String projectDescription = "It's probably Loki's fault";
-
         Project prResult = new Project();
-        prResult.setDescription(projectDescription);
+        prResult.setDescription(PROJECT_DESC);
 
         String descriptionUpdated = "It's probably Thor's fault"; // Loki with Thor
         ProjectRepresentation prMock = mock(ProjectRepresentation.class);
         doReturn(descriptionUpdated).when(prMock).getDescription();
 
         doReturn(Optional.of(prResult)).when(projectRepository).findById(anyLong());
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
         Project result = projectService.update(1L, prMock);
 
@@ -200,7 +193,7 @@ public class ProjectServiceTest {
         doReturn(newStatus.toString()).when(prMock).getStatus();
 
         doReturn(Optional.of(prResult)).when(projectRepository).findById(anyLong());
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
         Project result = projectService.update(1L, prMock);
 
@@ -221,7 +214,7 @@ public class ProjectServiceTest {
 
 
         doReturn(Optional.of(prResult)).when(projectRepository).findById(anyLong());
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         Person newPerson = mock(Person.class);
         doReturn(Optional.of(newPerson)).when(personRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
@@ -244,7 +237,7 @@ public class ProjectServiceTest {
 
 
         doReturn(Optional.of(prResult)).when(projectRepository).findById(anyLong());
-        doReturn("TestUser").when(securityProvider).getCurrentUser();
+        doReturn(TEST_USER).when(securityProvider).getCurrentUser();
         Building newBuilding = mock(Building.class);
         doReturn(Optional.of(newBuilding)).when(buildingRepository).findById(anyLong());
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
