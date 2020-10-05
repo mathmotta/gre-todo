@@ -209,3 +209,13 @@ gradle-app.setting
 **/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,windows,maven,java,java-web,gradle,vue,vuejs
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+gre-todo-business/gre-todo-business.iml
+gre-todo-common/gre-todo-common.iml
+gre-todo-data/gre-todo-data.iml
+gre-todo.iml
+.idea/.gitignore

@@ -12,6 +12,7 @@ A Todo App for a fictional company Golden Real Estate using VueJS and SpringBoot
 
 Java 11
 Apache Maven 3.6.1
+Node 12.18.4
 
 ## Running the app
 
@@ -63,3 +64,12 @@ Usually we take care of paging and sorting our own way, so I never really looked
 https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html
 https://docs.spring.io/spring-data/data-commons/docs/current/api/org/springframework/data/domain/Page.html
 https://www.baeldung.com/spring-data-jpa-pagination-sorting
+
+Base to-do project for Vuejs project:
+https://vuejs.org/v2/examples/todomvc.html
+
+Axios documentation
+https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html
+
+
+And some other smaller general searches in Google
