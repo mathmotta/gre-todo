@@ -12,15 +12,19 @@ import com.goldenrealstate.gretodo.data.model.Project;
 import com.goldenrealstate.gretodo.data.repository.IBuildingRepository;
 import com.goldenrealstate.gretodo.data.repository.IPersonRepository;
 import com.goldenrealstate.gretodo.data.repository.IProjectRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
 @Service
 public class ProjectService implements IProjectService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
     private IProjectRepository projectRepository;
@@ -49,6 +53,7 @@ public class ProjectService implements IProjectService {
             building.ifPresent(project::setBuilding);
         }
 
+        LOGGER.debug("Creating entity: {}", project);
         return projectRepository.save(project);
     }
 
@@ -79,6 +84,7 @@ public class ProjectService implements IProjectService {
 
         project.setUpdatedBy(securityProvider.getCurrentUser());
 
+        LOGGER.debug("Updating entity: {}", project);
         return projectRepository.save(project);
     }
 
@@ -101,7 +107,10 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws IdNotFoundException{
+        if (!personRepository.existsById(id))
+            throw new IdNotFoundException(id);
+        LOGGER.debug("Deleting entity with id: {}", id);
         projectRepository.deleteById(id);
     }
 

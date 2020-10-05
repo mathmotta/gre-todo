@@ -9,7 +9,6 @@ import java.util.List;
  * @since 1.0
  */
 public class ResultRepresentationList<T extends AbstractResultRepresentation> {
-
     private Long total;
     private Integer size;
     private Integer start;
@@ -52,5 +51,16 @@ public class ResultRepresentationList<T extends AbstractResultRepresentation> {
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        data.forEach(d -> sb.append("{").append(d.toString()).append("},"));
+        if(!data.isEmpty())
+            sb.deleteCharAt(sb.length()-1);
+        sb.append("]");
+        return "ResultRepresentationList{total='" + total + "', size='" + size + "', start='" + start + "', data="+sb+"}";
     }
 }

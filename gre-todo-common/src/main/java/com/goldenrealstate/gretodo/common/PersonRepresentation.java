@@ -28,4 +28,9 @@ public class PersonRepresentation extends AbstractResultRepresentation {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "PersonRepresentation{" + "id=" + id + "', " + "name='" + name + "'}";
+    }
 }

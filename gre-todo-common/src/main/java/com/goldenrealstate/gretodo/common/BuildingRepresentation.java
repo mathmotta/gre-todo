@@ -27,4 +27,9 @@ public class BuildingRepresentation extends AbstractResultRepresentation {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "BuildingRepresentation{" + "id=" + id + "', " + "name='" + name + "'}";
+    }
 }

@@ -7,10 +7,10 @@ package com.goldenrealstate.gretodo.common;
  * @since 1.0
  */
 public class ProjectRepresentationBase extends AbstractResultRepresentation {
-    private Long id;
-    private String name;
-    private String description;
-    private ProjectStatus status;
+    protected Long id;
+    protected String name;
+    protected String description;
+    protected ProjectStatus status;
 
     public ProjectRepresentationBase() {
     }
@@ -45,5 +45,10 @@ public class ProjectRepresentationBase extends AbstractResultRepresentation {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id + "', " + "name='" + name + "', " + "description='" + description + "', " + "status='" + status + "'";
     }
 }

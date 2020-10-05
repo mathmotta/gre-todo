@@ -5,11 +5,14 @@ import com.goldenrealstate.gretodo.business.exception.InvalidNameException;
 import com.goldenrealstate.gretodo.business.service.IPersonService;
 import com.goldenrealstate.gretodo.data.model.Person;
 import com.goldenrealstate.gretodo.data.repository.IPersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
 /**
@@ -22,6 +25,7 @@ import java.util.Optional;
  */
 @Service
 public class PersonService implements IPersonService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
     private IPersonRepository personRepository;
@@ -31,6 +35,7 @@ public class PersonService implements IPersonService {
         verifyName(name);
 
         Person person = new Person(name);
+        LOGGER.debug("Creating entity: {}", person);
         return personRepository.save(person);
     }
 
@@ -41,6 +46,7 @@ public class PersonService implements IPersonService {
 
         Person actual = person.orElseThrow(() -> new IdNotFoundException(id));
         actual.setName(newName);
+        LOGGER.debug("Updating entity: {}", actual);
         return personRepository.save(actual);
     }
 
@@ -59,6 +65,7 @@ public class PersonService implements IPersonService {
     public void delete(long id) throws IdNotFoundException {
         if (!personRepository.existsById(id))
             throw new IdNotFoundException(id);
+        LOGGER.debug("Deleting entity with id: {}", id);
         personRepository.deleteById(id);
     }
 

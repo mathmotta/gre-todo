@@ -27,4 +27,9 @@ public class ProjectRepresentationResponse extends ProjectRepresentationBase {
     public void setBuilding(BuildingRepresentation building) {
         this.building = building;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectRepresentationResponse{" + super.toString() + ", person=" + person.toString() + ", building=" + building.toString() + "}";
+    }
 }

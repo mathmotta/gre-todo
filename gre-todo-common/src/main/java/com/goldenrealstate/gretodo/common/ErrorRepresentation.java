@@ -18,7 +18,6 @@ public class ErrorRepresentation extends AbstractResultRepresentation {
         setStatusCode(statusCode);
     }
 
-
     public String getError() {
         return error;
     }
@@ -33,5 +32,10 @@ public class ErrorRepresentation extends AbstractResultRepresentation {
 
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorRepresentation{" + "error=" + error + "', " + "statusCode='" + statusCode + "'}";
     }
 }

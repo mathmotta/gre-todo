@@ -2,12 +2,15 @@ package com.goldenrealstate.gretodo.data.filter;
 
 import com.goldenrealstate.gretodo.common.ProjectRepresentation;
 import com.goldenrealstate.gretodo.data.model.Project;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import java.util.List;
  * @since 1.0
  */
 public class ProjectSpecification implements Specification<Project> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final ProjectRepresentation criteria;
 
@@ -52,6 +56,12 @@ public class ProjectSpecification implements Specification<Project> {
         if (criteria.getPersonId() != null)
             predicates.add(criteriaBuilder.equal(root.get("person").get("id"), criteria.getPersonId()));
 
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder sb = new StringBuilder();
+            predicates.forEach(p -> sb.append(p.getExpressions()).append(","));
+            sb.deleteCharAt(sb.length()-1);
+            LOGGER.debug("Creating query with predicates: {}", sb);
+        }
         return criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])))
                 .distinct(true).getRestriction();
     }

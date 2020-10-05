@@ -5,15 +5,19 @@ import com.goldenrealstate.gretodo.business.exception.InvalidNameException;
 import com.goldenrealstate.gretodo.business.service.IBuildingService;
 import com.goldenrealstate.gretodo.data.model.Building;
 import com.goldenrealstate.gretodo.data.repository.IBuildingRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
 @Service
 public class BuildingService implements IBuildingService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
     private IBuildingRepository buildingRepository;
@@ -23,6 +27,7 @@ public class BuildingService implements IBuildingService {
         verifyName(name);
 
         Building building = new Building(name);
+        LOGGER.debug("Creating entity: {}", building);
         return buildingRepository.save(building);
     }
 
@@ -31,13 +36,10 @@ public class BuildingService implements IBuildingService {
         verifyName(newName);
         Optional<Building> building = buildingRepository.findById(id);
 
-        Building actual;
-        if (building.isPresent())
-            actual = building.get();
-        else
-            throw new IdNotFoundException(id);
+        Building actual = building.orElseThrow(() -> new IdNotFoundException(id));
 
         actual.setName(newName);
+        LOGGER.debug("Updating entity: {}", actual);
         return buildingRepository.save(actual);
     }
 
@@ -49,13 +51,14 @@ public class BuildingService implements IBuildingService {
     @Override
     public Building findById(long id) {
         Optional<Building> building = buildingRepository.findById(id);
-        if (building.isEmpty())
-            return null;
-        return building.get();
+        return building.orElse(null);
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws IdNotFoundException {
+        if (!buildingRepository.existsById(id))
+            throw new IdNotFoundException(id);
+        LOGGER.debug("Deleting entity with id: {}", id);
         buildingRepository.deleteById(id);
     }
 
