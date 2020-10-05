@@ -1,5 +1,7 @@
 # Golden Real Estate ToDo
 
+![GRELogo](./gre-todo-frontend/src/assets/logo.png)
+
 A Todo App for a fictional company Golden Real Estate using VueJS and SpringBoot.
 
 ## Application Requirements
