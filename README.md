@@ -16,7 +16,48 @@ Node 12.18.4
 
 ## Running the app
 
+(WINDOWS) For the easiest setup, open a terminal in the Root application folder and run the following command:
 
+```
+run full_build_start
+```
+
+This will build and run tests for both the backend and frontend applications and then will start both servers on port 8080 and 8081 in separate terminals.
+
+After both servers are up, you can access the application through http://localhost:8080/
+
+The backend server is a __SpringBoot app__ that runs a __jetty server__. The frontend uses Vue Cli and starts a server via __vue serve__
+
+### Running manually
+
+To run manually, open a terminal in the root application folder and run the following command:
+
+```
+mvn install
+```
+
+This will build the application and run the tests. After it's done, you can start the spring boot app by navigating to the server module and running the `mvn spring-boot:run` command. This will start a spring boot application with an embedded jetty server.
+
+```
+cd ./gre-todo-server
+mvn spring-boot:run
+```
+
+After the backend is up, you can navigate to the frontend folder and run a `npm install`:
+
+```
+cd..
+cd ./gre-todo-frontend
+npm install
+```
+
+And after the build completes, you can start the server through:
+
+```
+npm run serve
+```
+
+After the server is up, you can acess the application in http://localhost:8080/
 
 ## Decisions
 
