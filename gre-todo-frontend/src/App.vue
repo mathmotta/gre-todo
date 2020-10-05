@@ -1,23 +1,14 @@
 <template>
   <v-app>
-    <v-app-bar app dark>
+    <v-app-bar app>
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
+          alt="GRE Logo"
           class="d-flex align-center mr-2"
           contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
+          src="./assets/logo.png"
+          width="300"
+          @click="goHome()"
         />
       </div>
 
@@ -27,12 +18,8 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn href="https://github.com/mathmotta/gre-todo" target="_blank" text>
+        <span class="mr-2">See project</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
@@ -46,9 +33,15 @@
 <script>
 export default {
   name: "App",
-
-  data: () => ({
-    //
-  }),
+  data() {
+    return {};
+  },
+  methods: {
+    goHome() {
+      this.$router.push({ name: "home" });
+    },
+  },
 };
 </script>
+
+
