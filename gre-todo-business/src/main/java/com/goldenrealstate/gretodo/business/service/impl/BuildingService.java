@@ -56,10 +56,13 @@ public class BuildingService implements IBuildingService {
 
     @Override
     public void delete(long id) throws IdNotFoundException {
-        if (!buildingRepository.existsById(id))
-            throw new IdNotFoundException(id);
-        LOGGER.debug("Deleting entity with id: {}", id);
-        buildingRepository.deleteById(id);
+        Optional<Building> building = buildingRepository.findById(id);
+        if (building.isPresent()) {
+            LOGGER.debug("Deleting entity with id: {}", id);
+            buildingRepository.deleteById(id);
+            return;
+        }
+        throw new IdNotFoundException(id);
     }
 
     @Override

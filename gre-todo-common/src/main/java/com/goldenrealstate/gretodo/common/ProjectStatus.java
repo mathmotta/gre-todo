@@ -20,6 +20,15 @@ public enum ProjectStatus {
         this.enumAsString = enumAsString;
     }
 
+    public static ProjectStatus fromString(String text) {
+        for (ProjectStatus b : ProjectStatus.values()) {
+            if (b.enumAsString.equalsIgnoreCase(text)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
     /**
      * Gets the correspondent string value of the enum back
      *

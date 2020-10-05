@@ -63,10 +63,13 @@ public class PersonService implements IPersonService {
 
     @Override
     public void delete(long id) throws IdNotFoundException {
-        if (!personRepository.existsById(id))
-            throw new IdNotFoundException(id);
-        LOGGER.debug("Deleting entity with id: {}", id);
-        personRepository.deleteById(id);
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isPresent()) {
+            LOGGER.debug("Deleting entity with id: {}", id);
+            personRepository.deleteById(id);
+            return;
+        }
+        throw new IdNotFoundException(id);
     }
 
     @Override

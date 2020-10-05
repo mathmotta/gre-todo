@@ -44,6 +44,7 @@ public class Person extends EntityBase {
      */
     public PersonRepresentation toDto() {
         PersonRepresentation pr = new PersonRepresentation();
+        pr.setId(getId());
         pr.setName(getName());
         return pr;
     }

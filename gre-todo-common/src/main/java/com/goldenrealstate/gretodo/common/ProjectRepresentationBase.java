@@ -10,7 +10,7 @@ public class ProjectRepresentationBase extends AbstractResultRepresentation {
     protected Long id;
     protected String name;
     protected String description;
-    protected ProjectStatus status;
+    protected String status;
 
     public ProjectRepresentationBase() {
     }
@@ -31,11 +31,11 @@ public class ProjectRepresentationBase extends AbstractResultRepresentation {
         this.description = description;
     }
 
-    public ProjectStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(ProjectStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

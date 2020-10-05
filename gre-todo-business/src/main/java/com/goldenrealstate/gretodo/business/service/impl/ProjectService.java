@@ -5,6 +5,7 @@ import com.goldenrealstate.gretodo.business.exception.InvalidNameException;
 import com.goldenrealstate.gretodo.business.security.SecurityProvider;
 import com.goldenrealstate.gretodo.business.service.IProjectService;
 import com.goldenrealstate.gretodo.common.ProjectRepresentation;
+import com.goldenrealstate.gretodo.common.ProjectStatus;
 import com.goldenrealstate.gretodo.data.filter.ProjectSpecification;
 import com.goldenrealstate.gretodo.data.model.Building;
 import com.goldenrealstate.gretodo.data.model.Person;
@@ -42,6 +43,7 @@ public class ProjectService implements IProjectService {
 
         Project project = new Project(projectRep.getName());
         project.setDescription(projectRep.getDescription());
+        project.setProjectStatus(ProjectStatus.fromString(projectRep.getStatus()));
         project.setCreatedBy(securityProvider.getCurrentUser());
         project.setUpdatedBy(securityProvider.getCurrentUser());
         if (projectRep.getPersonId() != null) {
@@ -70,7 +72,7 @@ public class ProjectService implements IProjectService {
             project.setDescription(projectRepresentation.getDescription());
 
         if (projectRepresentation.getStatus() != null)
-            project.setProjectStatus(projectRepresentation.getStatus());
+            project.setProjectStatus(ProjectStatus.fromString(projectRepresentation.getStatus()));
 
         if (projectRepresentation.getPersonId() != null) {
             Optional<Person> person = personRepository.findById(projectRepresentation.getPersonId());
@@ -108,10 +110,13 @@ public class ProjectService implements IProjectService {
 
     @Override
     public void delete(long id) throws IdNotFoundException{
-        if (!personRepository.existsById(id))
-            throw new IdNotFoundException(id);
-        LOGGER.debug("Deleting entity with id: {}", id);
-        projectRepository.deleteById(id);
+        Optional<Project> project = projectRepository.findById(id);
+        if(project.isPresent()) {
+            LOGGER.debug("Deleting entity with id: {}", id);
+            projectRepository.deleteById(id);
+            return;
+        }
+        throw new IdNotFoundException(id);
     }
 
     /**

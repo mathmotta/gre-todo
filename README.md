@@ -71,5 +71,13 @@ https://vuejs.org/v2/examples/todomvc.html
 Axios documentation
 https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html
 
+Using Vuetify Datatables
+https://vuetifyjs.com/en/components/data-tables/
+https://codepen.io/LucasMigotto/pen/JBrdPe (reference example)
+
+Using bootstrap-vue pagination
+https://bootstrap-vue.org/docs/components/pagination#component-reference
+https://www.creative-tim.com/learning-lab/bootstrap-vue/pagination/argon-dashboard (examples)
+
 
 And some other smaller general searches in Google

@@ -22,7 +22,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.data.domain.*;
 
-import java.security.Security;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +38,7 @@ import static org.mockito.Mockito.*;
  * @author Mathews Motta
  * @since 1.0
  */
+@SuppressWarnings("ALL")
 public class ProjectServiceTest {
 
     @InjectMocks
@@ -71,7 +71,7 @@ public class ProjectServiceTest {
         ProjectRepresentation pr = mock(ProjectRepresentation.class);
         doReturn(projectName).when(pr).getName();
         doReturn(projectDescription).when(pr).getDescription();
-        doReturn(projectStatus).when(pr).getStatus();
+        doReturn(projectStatus.toString()).when(pr).getStatus();
 
         doReturn("TestUser").when(securityProvider).getCurrentUser();
         doAnswer(inv -> inv.getArguments()[0]).when(projectRepository).save(any(Project.class));
@@ -92,7 +92,7 @@ public class ProjectServiceTest {
         ProjectRepresentation pr = mock(ProjectRepresentation.class);
         doReturn(projectName).when(pr).getName();
         doReturn(projectDescription).when(pr).getDescription();
-        doReturn(projectStatus).when(pr).getStatus();
+        doReturn(projectStatus.toString()).when(pr).getStatus();
         doReturn(personId).when(pr).getPersonId();
 
         doReturn("TestUser").when(securityProvider).getCurrentUser();
@@ -117,7 +117,7 @@ public class ProjectServiceTest {
         ProjectRepresentation pr = mock(ProjectRepresentation.class);
         doReturn(projectName).when(pr).getName();
         doReturn(projectDescription).when(pr).getDescription();
-        doReturn(projectStatus).when(pr).getStatus();
+        doReturn(projectStatus.toString()).when(pr).getStatus();
         doReturn(personId).when(pr).getPersonId();
         doReturn(buildingId).when(pr).getBuildingId();
 
@@ -149,7 +149,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void updateProjectNameAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
+    public void updateProjectNameAndReturnSuccess() throws IdNotFoundException {
         String projectName = "Cleanup the garbage left on Bifröst";
 
         Project prResult = new Project();
@@ -169,7 +169,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void updateProjectDescriptionAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
+    public void updateProjectDescriptionAndReturnSuccess() throws IdNotFoundException {
         String projectDescription = "It's probably Loki's fault";
 
         Project prResult = new Project();
@@ -189,7 +189,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void updateProjectStatusAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
+    public void updateProjectStatusAndReturnSuccess() throws IdNotFoundException {
         ProjectStatus projectStatus = ProjectStatus.NEW;
 
         Project prResult = new Project();
@@ -197,7 +197,7 @@ public class ProjectServiceTest {
 
         ProjectStatus newStatus = ProjectStatus.IN_PROGRESS;
         ProjectRepresentation prMock = mock(ProjectRepresentation.class);
-        doReturn(newStatus).when(prMock).getStatus();
+        doReturn(newStatus.toString()).when(prMock).getStatus();
 
         doReturn(Optional.of(prResult)).when(projectRepository).findById(anyLong());
         doReturn("TestUser").when(securityProvider).getCurrentUser();
@@ -209,7 +209,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void updateProjectPersonAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
+    public void updateProjectPersonAndReturnSuccess() throws IdNotFoundException {
         Person person = mock(Person.class);
 
         Project prResult = new Project();
@@ -232,7 +232,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void updateProjectBuildingAndReturnSuccess() throws InvalidNameException, IdNotFoundException {
+    public void updateProjectBuildingAndReturnSuccess() throws IdNotFoundException {
         Building building = mock(Building.class);
 
         Project prResult = new Project();

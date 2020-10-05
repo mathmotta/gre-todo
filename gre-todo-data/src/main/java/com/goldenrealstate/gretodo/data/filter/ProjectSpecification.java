@@ -1,6 +1,7 @@
 package com.goldenrealstate.gretodo.data.filter;
 
 import com.goldenrealstate.gretodo.common.ProjectRepresentation;
+import com.goldenrealstate.gretodo.common.ProjectStatus;
 import com.goldenrealstate.gretodo.data.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,7 @@ public class ProjectSpecification implements Specification<Project> {
      * @param criteriaBuilder the criteria builder
      * @return the predicate restriction to be used to filter results
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     public Predicate toPredicate(Root<Project> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
@@ -50,7 +52,7 @@ public class ProjectSpecification implements Specification<Project> {
         if (criteria.getName() != null)
             predicates.add(criteriaBuilder.equal(root.get("name"), criteria.getName()));
         if (criteria.getStatus() != null)
-            predicates.add(criteriaBuilder.equal(root.get("projectStatus"), criteria.getStatus()));
+            predicates.add(criteriaBuilder.equal(root.get("projectStatus"), ProjectStatus.fromString(criteria.getStatus())));
         if (criteria.getBuildingId() != null)
             predicates.add(criteriaBuilder.equal(root.get("building").get("id"), criteria.getBuildingId()));
         if (criteria.getPersonId() != null)
