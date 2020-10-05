@@ -1,10 +1,10 @@
 <template>
-  <div class="create-building">
-    <h1>Create a Building</h1>
+  <div v-if="building" class="edit-building">
+    <h1>Editing Building: {{ oldName }}</h1>
     <div class="submit-form">
       <div v-if="!submitted">
         <div class="form-group">
-          <label for="name">Name</label>
+          <label class="form-label" for="name">Name</label>
           <input
             type="text"
             class="form-control"
@@ -15,53 +15,79 @@
           />
         </div>
 
-        <button @click="createBuilding" class="btn btn-success">Submit</button>
+        <button @click="editBuilding(building.id)" class="btn btn-success">
+          Edit Building
+        </button>
       </div>
 
       <div v-else>
-        <h4>You submitted successfully!</h4>
+        <h4>Building edited!</h4>
         <button class="btn btn-success" @click="newBuilding">Add</button>
       </div>
     </div>
   </div>
+
+  <div v-else>
+    <br />
+    <p>Please click on a Building...</p>
+  </div>
 </template>
 
 <script>
-import BuildingDataService from '../../services/BuildingDataService'
+import BuildingDataService from "../../services/BuildingDataService";
 
 export default {
-  name: 'create-building',
+  name: "edit-building",
   data() {
     return {
-      building: {
-        name: '',
-      },
+      oldName: "",
+      building: null,
       submitted: false,
     };
   },
   methods: {
-    async createBuilding() {
-      await BuildingDataService.create({
+    async findById(id) {
+      await BuildingDataService.findById(id)
+        .then((res) => {
+          this.building = res.data
+          this.oldName = res.data.name;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+
+    async editBuilding(id) {
+      await BuildingDataService.update(id, {
         name: this.building.name,
       });
-      this.$router.push({ name: 'Buildings' })
+      this.$router.push({ name: "buildings" });
     },
 
     newBuilding() {
-      this.submitted = false
-      this.building = {}
+      this.submitted = false;
+      this.building = {};
     },
+  },
+  mounted() {
+    this.findById(this.$route.params.id);
   },
 };
 </script>
 
 <style>
-.create-building {
-  max-width: 500px;
+.edit-building {
+  padding-top: 50px;
+  max-width: 700px;
   margin: auto;
 }
 .submit-form {
-  max-width: 500px;
+  max-width: 700px;
   margin: auto;
 }
+
+.submit-form .form-group{
+  padding-top: 20px;
+}
+
 </style>

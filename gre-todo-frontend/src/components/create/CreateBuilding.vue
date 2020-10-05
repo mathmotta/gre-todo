@@ -15,11 +15,11 @@
           />
         </div>
 
-        <button @click="createBuilding" class="btn btn-success">Submit</button>
+        <button @click="createBuilding" class="btn btn-success">Create building</button>
       </div>
 
       <div v-else>
-        <h4>You submitted successfully!</h4>
+        <h4>Building submitted</h4>
         <button class="btn btn-success" @click="newBuilding">Add</button>
       </div>
     </div>
@@ -44,7 +44,7 @@ export default {
       await BuildingDataService.create({
         name: this.building.name,
       });
-      this.$router.push({ name: 'Buildings' })
+      this.$router.push({ name: "buildings" });
     },
 
     newBuilding() {
@@ -57,11 +57,15 @@ export default {
 
 <style>
 .create-building {
-  max-width: 500px;
+  padding-top: 50px;
+  max-width: 700px;
   margin: auto;
 }
 .submit-form {
-  max-width: 500px;
+  max-width: 700px;
   margin: auto;
+}
+.submit-form .form-group{
+  padding-top: 20px;
 }
 </style>
