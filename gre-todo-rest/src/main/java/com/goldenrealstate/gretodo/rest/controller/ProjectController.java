@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/projects")
+@CrossOrigin
 public class ProjectController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

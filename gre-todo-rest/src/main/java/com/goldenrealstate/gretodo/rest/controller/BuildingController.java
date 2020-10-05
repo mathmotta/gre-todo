@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/buildings")
+@CrossOrigin
 public class BuildingController {
 
     @Autowired
