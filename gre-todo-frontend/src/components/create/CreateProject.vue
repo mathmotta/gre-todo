@@ -37,7 +37,7 @@
             required
             v-model="project.status"
             name="status"
-            @change=setStatus($event)
+            @change="setStatus($event)"
           >
             <option value="New">New</option>
             <option value="In Progress">In Progress</option>
@@ -81,7 +81,9 @@
           </select>
         </div>
 
-        <button @click="createProject" class="btn btn-success">Create project</button>
+        <button @click="createProject" class="btn btn-success">
+          Create project
+        </button>
       </div>
 
       <div v-else>
@@ -93,21 +95,21 @@
 </template>
 
 <script>
-import BuildingDataService from '../../services/BuildingDataService'
-import PersonDataService from '../../services/PersonDataService'
-import ProjectDataService from '../../services/ProjectDataService'
+import BuildingDataService from "../../services/BuildingDataService";
+import PersonDataService from "../../services/PersonDataService";
+import ProjectDataService from "../../services/ProjectDataService";
 
 export default {
-  name: 'create-project',
+  name: "create-project",
   data() {
     return {
       persons: [],
       buildings: [],
-      defaultStatus: 'New',
+      defaultStatus: "New",
       project: {
-        name: '',
-        description: '',
-        status: 'New',
+        name: "",
+        description: "",
+        status: "New",
         personId: null,
         buildingId: null,
       },
@@ -138,8 +140,8 @@ export default {
         .catch((e) => console.log(e));
     },
 
-    setStatus(event){
-        this.project.status = event.target.value
+    setStatus(event) {
+      this.project.status = event.target.value;
     },
 
     newProject() {
@@ -164,7 +166,7 @@ export default {
   max-width: 700px;
   margin: auto;
 }
-.submit-form .form-group{
+.submit-form .form-group {
   padding-top: 20px;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div v-if="project" class="edit-project">
-    <h1>Editing Project</h1>
-    <h2>{{ oldName }}</h2>
+    <h2>Task: {{ oldName }}</h2>
     <div class="submit-form">
       <div v-if="!submitted">
         <div class="form-group">
           <label class="form-label" for="name">Name</label>
           <input
+            disabled
             type="text"
             class="form-control"
             id="name"
@@ -18,6 +18,7 @@
         <div class="form-group">
           <label class="form-label" for="description">Description</label>
           <textarea
+            disabled
             type="text"
             class="form-control"
             id="description"
@@ -29,6 +30,7 @@
         <div class="form-group">
           <label class="form-label" for="status">Staus</label>
           <select
+            disabled
             type="select"
             class="form-control"
             id="status"
@@ -43,41 +45,31 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="name">Assigned person</label>
-          <select
-            type="select"
+          <label class="form-label" for="personName">Assigned person</label>
+          <input
+            disabled
+            type="text"
             class="form-control"
-            id="person"
-            v-model="project.person.id"
-            name="name"
-          >
-            <option v-for="(person, i) in persons" :key="i" :value="person.id">
-              {{ person.name }}
-            </option>
-          </select>
+            id="personName"
+            v-model="project.person.name"
+            name="personName"
+          />
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="name">Building</label>
-          <select
-            type="select"
+          <label class="form-label" for="buildingName">Building</label>
+          <input
+            disabled
+            type="text"
             class="form-control"
-            id="building"
-            v-model="project.building.id"
-            name="building"
-          >
-            <option
-              v-for="(building, i) in buildings"
-              :key="i"
-              :value="building.id"
-            >
-              {{ building.name }}
-            </option>
-          </select>
+            id="buildingName"
+            v-model="project.building.name"
+            name="buildingName"
+          />
         </div>
 
         <button @click="editProject(project.id)" class="btn btn-success">
-          Edit Project
+          Edit this Project
         </button>
       </div>
 
@@ -95,8 +87,6 @@
 </template>
 
 <script>
-import BuildingDataService from "../../services/BuildingDataService";
-import PersonDataService from "../../services/PersonDataService";
 import ProjectDataService from "../../services/ProjectDataService";
 
 export default {
@@ -121,27 +111,13 @@ export default {
           console.log(e);
         });
     },
-    async findAllPersons() {
-      await PersonDataService.findAll(null, "page=0&size=200")
-        .then((resp) => (this.persons = resp.data.data))
-        .catch((e) => console.log(e));
-    },
 
-    async findAllBuildings() {
-      await BuildingDataService.findAll(null, "page=0&size=200")
-        .then((resp) => (this.buildings = resp.data.data))
-        .catch((e) => console.log(e));
-    },
-
-    async editProject(id) {
-      await ProjectDataService.update(id, {
-        name: this.project.name,
-        description: this.project.description,
-        status: this.project.status,
-        personId: this.project.person.id,
-        buildingId: this.project.building.id,
-      });
-      this.$router.push({ name: "projects" });
+    editProject(id) {
+      this.$router
+        .push({ name: "edit-project", params: { id: id } })
+        .catch((err) => {
+          throw new Error(`An error has occurred: ${err}.`);
+        });
     },
 
     newProject() {
@@ -155,8 +131,6 @@ export default {
   },
   mounted() {
     this.findById(this.$route.params.id);
-    this.findAllPersons();
-    this.findAllBuildings();
   },
 };
 </script>
